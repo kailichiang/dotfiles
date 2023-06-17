@@ -1,3 +1,11 @@
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -93,13 +101,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#alias sail="bash vendor/bin/sail"
 alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 alias php-cs-fixer='[ -f php-cs-fixer ] && bash php-cs-fixer || bash vendor/friendsofphp/php-cs-fixer/php-cs-fixer'
 alias logod="cd ~/Projects/logod-laravel"
 alias make-iso="hdiutil makehybrid -iso -joliet -o"
 alias -g V="| vim -"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 autoload -U zmv
 
@@ -114,6 +120,8 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 #export PATH="$(brew --prefix php)/sbin:$PATH"
 export PATH="$HOME/Development/flutter/bin:$PATH"
 export PATH="/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$PATH"
+# Add `~/bin` to the `$PATH`
+export PATH="$HOME/bin:$PATH";
 
 #export PYENV_ROOT="$HOME/.pyenv"
 #export PATH="$PYENV_ROOT/bin:$PATH"
